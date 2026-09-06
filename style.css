@@ -393,3 +393,85 @@ section{
 @media (min-width: 700px){
   .polaroid-field{ grid-template-columns: repeat(3, minmax(0,1fr)); max-width: 640px; }
 }
+
+
+/* =========================================================
+   CONTADOR DEL AMOR
+========================================================= */
+
+#love-counter {
+  display: none;
+  width: 100%;
+  max-width: 600px;
+  margin: 45px auto 0;
+  text-align: center;
+  padding: 25px 15px 40px;
+}
+
+.counter-label {
+  margin: 0 0 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-style: italic;
+  letter-spacing: .08em;
+  opacity: .8;
+}
+
+.counter-time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.counter-time span {
+  min-width: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.counter-time strong {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.counter-time small {
+  margin-top: 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: .65rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  opacity: .55;
+}
+
+.counter-sub {
+  margin: 20px 0 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-style: italic;
+  opacity: .7;
+}
+
+@media (max-width: 480px) {
+
+  #love-counter {
+    margin-top: 35px;
+  }
+
+  .counter-time {
+    gap: 8px;
+  }
+
+  .counter-time span {
+    min-width: 62px;
+  }
+
+  .counter-time strong {
+    font-size: 1.45rem;
+  }
+
+}
