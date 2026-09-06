@@ -130,37 +130,18 @@
      COLLAGE: entrada escalonada con direcciones distintas
   ========================================================== */
   function animatePolaroids(){
-    const cards = Array.from(document.querySelectorAll('.polaroid'));
-    const patterns = [
-      { from: 'translateX(-60px) rotate(-8deg)' },
-      { from: 'translateX(60px) rotate(8deg)' },
-      { from: 'translateY(-60px) scale(0.85)' },
-      { from: 'translateY(60px) rotate(-6deg)' },
-      { from: 'scale(0.6)' },
-      { from: 'rotate(18deg) scale(0.8)' }
-    ];
-    cards.forEach((card, i) => {
-      const baseTransform = card.style.transform || getComputedStyle(card).transform;
-      const pattern = patterns[i % patterns.length];
-      card.style.opacity = '0';
-      card.style.transform = pattern.from;
-      card.style.transition = 'opacity 700ms cubic-bezier(.22,.61,.36,1), transform 700ms cubic-bezier(.22,.61,.36,1)';
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if(entry.isIntersecting){
-            setTimeout(() => {
-              card.style.opacity = '1';
-              card.style.transform = baseTransform;
-              // deja que la animación flotante CSS tome el control después
-              setTimeout(() => { card.style.transition = ''; }, 750);
-            }, i * 90);
-            observer.unobserve(card);
-          }
-        });
-      }, { threshold: 0.2 });
-      observer.observe(card);
-    });
-  }
+  const cards = Array.from(document.querySelectorAll('.polaroid'));
+
+  cards.forEach((card, i) => {
+    card.style.opacity = '1';
+    card.style.transform = '';
+    card.style.transition = 'opacity 700ms ease, transform 700ms ease';
+
+    setTimeout(() => {
+      card.style.transform = 'translateY(0)';
+    }, i * 100);
+  });
+}
 
   /* =========================================================
      BOTÓN FINAL: "Siempre tú"
