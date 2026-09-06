@@ -30,13 +30,11 @@
   ========================================================== */
 
   function spawnEmbers(count) {
-
     if (!emberField) return;
 
     for (let i = 0; i < count; i++) {
 
       const ember = document.createElement('span');
-
       ember.className = 'ember';
 
       const size = 2 + Math.random() * 3;
@@ -48,17 +46,9 @@
       ember.style.left = left + '%';
       ember.style.width = size + 'px';
       ember.style.height = size + 'px';
-
-      ember.style.animationDuration =
-        duration + 's';
-
-      ember.style.animationDelay =
-        delay + 's';
-
-      ember.style.setProperty(
-        '--drift',
-        drift
-      );
+      ember.style.animationDuration = duration + 's';
+      ember.style.animationDelay = delay + 's';
+      ember.style.setProperty('--drift', drift);
 
       emberField.appendChild(ember);
     }
@@ -74,26 +64,19 @@
   if (canvas) {
 
     const ctx = canvas.getContext('2d');
-
     let fogParticles = [];
 
     function resizeCanvas() {
-
-      canvas.width =
-        window.innerWidth;
-
-      canvas.height =
-        window.innerHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
-
 
     function initFog() {
 
       resizeCanvas();
 
       const count = Math.round(
-        (canvas.width * canvas.height) /
-        90000
+        (canvas.width * canvas.height) / 90000
       );
 
       fogParticles = [];
@@ -101,25 +84,15 @@
       for (let i = 0; i < Math.max(10, count); i++) {
 
         fogParticles.push({
-
-          x: Math.random() *
-            canvas.width,
-
-          y: Math.random() *
-            canvas.height,
-
-          r: 60 +
-            Math.random() * 120,
-
-          speed: 0.06 +
-            Math.random() * 0.12,
-
-          alpha: 0.02 +
-            Math.random() * 0.03
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: 60 + Math.random() * 120,
+          speed: 0.06 + Math.random() * 0.12,
+          alpha: 0.02 + Math.random() * 0.03
         });
+
       }
     }
-
 
     function drawFog() {
 
@@ -130,16 +103,13 @@
         canvas.height
       );
 
-
       fogParticles.forEach(p => {
 
         p.x += p.speed;
 
-
         if (p.x - p.r > canvas.width) {
           p.x = -p.r;
         }
-
 
         const gradient =
           ctx.createRadialGradient(
@@ -151,21 +121,17 @@
             p.r
           );
 
-
         gradient.addColorStop(
           0,
           `rgba(120,15,30,${p.alpha})`
         );
-
 
         gradient.addColorStop(
           1,
           'rgba(0,0,0,0)'
         );
 
-
         ctx.fillStyle = gradient;
-
 
         ctx.beginPath();
 
@@ -181,13 +147,10 @@
 
       });
 
-
       requestAnimationFrame(drawFog);
     }
 
-
     initFog();
-
     drawFog();
 
     window.addEventListener(
@@ -198,135 +161,23 @@
 
 
   /* =========================================================
-     CREAR FRAGMENTOS DEL CORAZÓN
-  ========================================================== */
-
-  function makeShards(amount) {
-
-    if (!shardsHost) return;
-
-
-    for (let i = 0; i < amount; i++) {
-
-      const shard =
-        document.createElement('span');
-
-      shard.className = 'shard';
-
-
-      const angle =
-        Math.random() *
-        Math.PI * 2;
-
-
-      const distance =
-        90 +
-        Math.random() * 160;
-
-
-      const tx =
-        Math.cos(angle) *
-        distance;
-
-
-      const ty =
-        Math.sin(angle) *
-        distance -
-        20;
-
-
-      const rotation =
-        Math.random() *
-        720 -
-        360;
-
-
-      const size =
-        8 +
-        Math.random() * 14;
-
-
-      shard.style.setProperty(
-        '--tx',
-        tx + 'px'
-      );
-
-
-      shard.style.setProperty(
-        '--ty',
-        ty + 'px'
-      );
-
-
-      shard.style.setProperty(
-        '--rot',
-        rotation + 'deg'
-      );
-
-
-      shard.style.width =
-        size + 'px';
-
-      shard.style.height =
-        size + 'px';
-
-
-      shard.style.animationDelay =
-        Math.random() * 120 +
-        'ms';
-
-
-      shardsHost.appendChild(shard);
-
-
-      requestAnimationFrame(() => {
-
-        shard.classList.add('go');
-
-      });
-    }
-  }
-
-
-  /* =========================================================
      MÚSICA
   ========================================================== */
 
   function playMusic() {
 
-    if (!music) {
-      console.error(
-        '❌ No existe #bg-music'
-      );
-
-      return;
-    }
-
-
-    console.log(
-      '🎵 Intentando reproducir:',
-      music.src
-    );
-
+    if (!music) return;
 
     music.volume = 0.6;
 
+    const promise = music.play();
 
-    const playPromise =
-      music.play();
+    if (promise !== undefined) {
 
-
-    if (playPromise !== undefined) {
-
-      playPromise
+      promise
         .then(() => {
 
           musicPlaying = true;
-
-          console.log(
-            '🎵 Música reproduciéndose correctamente'
-          );
-
 
           if (musicBtn) {
 
@@ -344,21 +195,12 @@
         })
         .catch(error => {
 
-          musicPlaying = false;
-
-          console.error(
-            '❌ No se pudo reproducir la música:',
+          console.warn(
+            'No se pudo reproducir la música:',
             error
           );
 
-
-          if (musicBtn) {
-
-            musicBtn.setAttribute(
-              'aria-pressed',
-              'false'
-            );
-          }
+          musicPlaying = false;
 
         });
     }
@@ -372,7 +214,6 @@
     music.pause();
 
     musicPlaying = false;
-
 
     if (musicBtn) {
 
@@ -389,10 +230,6 @@
   }
 
 
-  /* =========================================================
-     BOTÓN DE MÚSICA
-  ========================================================== */
-
   if (musicBtn) {
 
     musicBtn.addEventListener(
@@ -400,13 +237,9 @@
       () => {
 
         if (musicPlaying) {
-
           pauseMusic();
-
         } else {
-
           playMusic();
-
         }
 
       }
@@ -415,7 +248,183 @@
 
 
   /* =========================================================
-     PREPARAR IMÁGENES
+     PEDAZOS DEL CORAZÓN
+  ========================================================== */
+
+  function makeShards(amount) {
+
+    if (!shardsHost) return;
+
+    for (let i = 0; i < amount; i++) {
+
+      const shard =
+        document.createElement('span');
+
+      shard.className = 'shard';
+
+
+      /*
+        Cada pedazo sale desde el centro
+        hacia una dirección diferente.
+      */
+
+      const angle =
+        Math.random() * Math.PI * 2;
+
+      const distance =
+        100 + Math.random() * 230;
+
+      const tx =
+        Math.cos(angle) * distance;
+
+      const ty =
+        Math.sin(angle) * distance - 30;
+
+
+      const rotation =
+        Math.random() * 900 - 450;
+
+
+      const size =
+        6 + Math.random() * 16;
+
+
+      shard.style.setProperty(
+        '--tx',
+        tx + 'px'
+      );
+
+      shard.style.setProperty(
+        '--ty',
+        ty + 'px'
+      );
+
+      shard.style.setProperty(
+        '--rot',
+        rotation + 'deg'
+      );
+
+
+      shard.style.width =
+        size + 'px';
+
+      shard.style.height =
+        size + 'px';
+
+
+      /*
+        Diferentes velocidades
+        para que no parezca que todos
+        salen al mismo tiempo.
+      */
+
+      shard.style.animationDuration =
+        (650 + Math.random() * 500) + 'ms';
+
+
+      shard.style.animationDelay =
+        Math.random() * 100 + 'ms';
+
+
+      shardsHost.appendChild(shard);
+
+
+      requestAnimationFrame(() => {
+
+        shard.classList.add('go');
+
+      });
+    }
+  }
+
+
+  /* =========================================================
+     ANIMACIÓN DE ENTRADA DEL CONTENIDO
+  ========================================================== */
+
+  function animateMainContent() {
+
+    if (!mainContent) return;
+
+
+    /*
+      Todos los elementos que queremos
+      animar al aparecer.
+    */
+
+    const revealElements = [
+      ...document.querySelectorAll(
+        '#reveal .title-serif'
+      ),
+
+      ...document.querySelectorAll(
+        '#reveal .date-mark'
+      ),
+
+      ...document.querySelectorAll(
+        '#reveal .body-text'
+      ),
+
+      ...document.querySelectorAll(
+        '#reveal .scroll-cue'
+      )
+    ];
+
+
+    /*
+      Primero los dejamos invisibles.
+    */
+
+    revealElements.forEach(element => {
+
+      element.style.opacity = '0';
+
+      element.style.transform =
+        'translateY(30px)';
+
+    });
+
+
+    /*
+      Animación escalonada.
+    */
+
+    revealElements.forEach(
+      (element, index) => {
+
+        setTimeout(() => {
+
+          element.animate(
+            [
+              {
+                opacity: 0,
+                transform:
+                  'translateY(30px)'
+              },
+
+              {
+                opacity: 1,
+                transform:
+                  'translateY(0)'
+              }
+            ],
+            {
+              duration: 850,
+              easing:
+                'cubic-bezier(.22,.61,.36,1)',
+              fill: 'forwards'
+            }
+          );
+
+        }, 350 + index * 250);
+
+      }
+    );
+  }
+
+
+  /* =========================================================
+     FOTOS
   ========================================================== */
 
   function prepareImages() {
@@ -426,69 +435,34 @@
       );
 
 
-    console.log(
-      '📸 Imágenes encontradas:',
-      images.length
-    );
-
-
-    images.forEach((img, index) => {
+    images.forEach(img => {
 
       /*
-        Quitamos lazy loading para asegurarnos
-        de que el navegador las cargue.
+        Desactivamos lazy loading para que
+        las fotos estén disponibles cuando
+        aparezca el collage.
       */
 
       img.loading = 'eager';
 
 
-      /*
-        Si ya está cargada.
-      */
+      img.addEventListener(
+        'error',
+        () => {
 
-      if (img.complete) {
+          console.error(
+            '❌ No se pudo cargar:',
+            img.src
+          );
 
-        console.log(
-          `📸 Foto ${index + 1}: OK`,
-          img.src
-        );
+        }
+      );
 
-      } else {
-
-        img.addEventListener(
-          'load',
-          () => {
-
-            console.log(
-              `📸 Foto ${index + 1}: cargada`,
-              img.src
-            );
-
-          }
-        );
-
-
-        img.addEventListener(
-          'error',
-          () => {
-
-            console.error(
-              `❌ Foto ${index + 1} NO CARGÓ:`,
-              img.src
-            );
-
-          }
-        );
-      }
     });
   }
 
 
-  /* =========================================================
-     MOSTRAR LAS FOTOS
-  ========================================================== */
-
-  function showPhotos() {
+  function animatePhotos() {
 
     const cards =
       document.querySelectorAll(
@@ -496,115 +470,113 @@
       );
 
 
-    console.log(
-      '❤️ Mostrando',
-      cards.length,
-      'polaroids'
-    );
+    /*
+      Inicialmente invisibles y ligeramente
+      alejadas.
+    */
 
+    cards.forEach(card => {
 
-    cards.forEach((card, index) => {
-
-      /*
-        Limpiamos cualquier estilo inline
-        anterior que pudiera ocultarlas.
-      */
-
-      card.style.opacity = '1';
+      card.style.opacity = '0';
 
       card.style.visibility =
-        'visible';
+        'hidden';
 
-
-      /*
-        NO ponemos transform.
-        Así dejamos que .p1, .p2, etc.
-        sean controlados por tu CSS.
-      */
-
-      card.style.transform = '';
-
-
-      /*
-        Animación sencilla de aparición.
-      */
-
-      card.animate(
-        [
-          {
-            opacity: 0,
-            transform: 'scale(0.92)'
-          },
-
-          {
-            opacity: 1,
-            transform: 'scale(1)'
-          }
-        ],
-        {
-          duration: 650,
-
-          delay:
-            index * 100,
-
-          easing:
-            'cubic-bezier(.22,.61,.36,1)',
-
-          fill: 'both'
-        }
-      );
     });
+
+
+    /*
+      Aparecen una por una.
+    */
+
+    cards.forEach(
+      (card, index) => {
+
+        setTimeout(() => {
+
+          card.style.visibility =
+            'visible';
+
+
+          card.animate(
+            [
+              {
+                opacity: 0,
+                transform:
+                  'translateY(45px) scale(.88) rotate(0deg)'
+              },
+
+              {
+                opacity: 1,
+                transform:
+                  'translateY(0) scale(1)'
+              }
+            ],
+            {
+              duration: 800,
+              easing:
+                'cubic-bezier(.22,.61,.36,1)',
+              fill: 'forwards'
+            }
+          );
+
+
+        }, 1200 + index * 170);
+
+      }
+    );
   }
 
 
   /* =========================================================
-     REVELAR CONTENIDO
+     REVELAR LA PÁGINA
   ========================================================== */
 
   function revealMain() {
 
-    if (!mainContent) {
-
-      console.error(
-        '❌ No existe #main-content'
-      );
-
-      return;
-    }
+    if (!mainContent) return;
 
 
     /*
-      Quitamos completamente hidden.
+      Mostrar contenido.
     */
 
     mainContent.hidden = false;
-
-    mainContent.removeAttribute(
-      'hidden'
-    );
-
+    mainContent.removeAttribute('hidden');
 
     document.body.style.overflowY =
       'auto';
 
 
     /*
-      Preparamos las fotos.
+      Preparar imágenes.
     */
 
     prepareImages();
 
 
     /*
-      Esperamos un poquito para que
-      el navegador pinte el contenido.
+      Animar primero los textos.
     */
 
     setTimeout(() => {
 
-      showPhotos();
+      animateMainContent();
 
     }, 100);
+
+
+    /*
+      Después empiezan a aparecer
+      las fotos.
+    */
+
+    setTimeout(() => {
+
+      animatePhotos();
+
+    }, 500);
+
   }
 
 
@@ -619,22 +591,15 @@
     broken = true;
 
 
-    console.log(
-      '💔 Corazón tocado'
-    );
-
-
     /*
-      MUY IMPORTANTE:
-      Intentamos iniciar la música exactamente
-      durante la interacción del usuario.
+      Música inmediatamente.
     */
 
     playMusic();
 
 
     /* -----------------------------------------
-       Animación del corazón
+       1. PULSO DEL CORAZÓN
     ----------------------------------------- */
 
     if (heartSvg) {
@@ -645,37 +610,33 @@
 
 
       heartSvg.style.transition =
-        'transform 180ms ease-out';
+        'transform 180ms cubic-bezier(.2,.8,.2,1)';
 
 
       heartSvg.style.transform =
-        'scale(1.12)';
-    }
+        'scale(1.18)';
 
-
-    if (heartWrap) {
-
-      heartWrap.classList.add(
-        'fading'
-      );
     }
 
 
     /* -----------------------------------------
-       Romper corazón
+       2. CORAZÓN SE ROMPE
     ----------------------------------------- */
 
     setTimeout(() => {
 
+      /*
+        Crear MUCHOS pedazos antes
+        de desaparecer.
+      */
+
+      makeShards(40);
+
+
       if (heartSvg) {
 
-        heartSvg.classList.add(
-          'breaking'
-        );
-
-
         heartSvg.style.transition =
-          'opacity 260ms ease-out, transform 260ms ease-out';
+          'opacity 450ms ease-out, transform 450ms ease-out';
 
 
         heartSvg.style.opacity =
@@ -683,17 +644,40 @@
 
 
         heartSvg.style.transform =
-          'scale(0.85)';
+          'scale(.65) rotate(-4deg)';
+
       }
 
 
-      makeShards(26);
+      if (heartWrap) {
 
-    }, 190);
+        heartWrap.classList.add(
+          'fading'
+        );
+
+      }
+
+    }, 180);
 
 
     /* -----------------------------------------
-       Revelar página
+       3. PEDAZOS VUELAN
+    ----------------------------------------- */
+
+    setTimeout(() => {
+
+      if (heartWrap) {
+
+        heartWrap.style.opacity =
+          '0';
+
+      }
+
+    }, 600);
+
+
+    /* -----------------------------------------
+       4. CAMBIO A LA PÁGINA
     ----------------------------------------- */
 
     setTimeout(() => {
@@ -703,12 +687,14 @@
         introScreen.classList.add(
           'hidden'
         );
+
       }
 
 
       revealMain();
 
-    }, 1050);
+    }, 950);
+
   }
 
 
@@ -737,6 +723,7 @@
         passive: false
       }
     );
+
   }
 
 
@@ -760,24 +747,17 @@
         const centerX =
           rect.width / 2;
 
-
         const centerY =
           rect.height / 2;
 
 
-        for (
-          let i = 0;
-          i < 24;
-          i++
-        ) {
+        for (let i = 0; i < 24; i++) {
 
           const heart =
             document.createElement('span');
 
-
           heart.className =
             'burst-heart';
-
 
           heart.textContent =
             '♡';
@@ -787,7 +767,6 @@
             Math.random() *
             Math.PI * 2;
 
-
           const distance =
             80 +
             Math.random() * 220;
@@ -795,7 +774,6 @@
 
           heart.style.left =
             centerX + 'px';
-
 
           heart.style.top =
             centerY + 'px';
@@ -808,7 +786,6 @@
               'px'
           );
 
-
           heart.style.setProperty(
             '--by',
             Math.sin(angle) *
@@ -816,7 +793,6 @@
               60 +
               'px'
           );
-
 
           heart.style.setProperty(
             '--brot',
@@ -830,7 +806,7 @@
           heart.style.animationDelay =
             Math.random() *
               250 +
-              'ms';
+            'ms';
 
 
           heart.style.fontSize =
@@ -850,18 +826,16 @@
             heart.remove();
 
           }, 2200);
+
         }
 
-
-        /*
-          Mantener el texto del botón.
-        */
 
         alwaysBtn.innerHTML =
           'Siempre tú <span class="heart-mark">♡</span>';
 
       }
     );
+
   }
 
 
@@ -870,50 +844,21 @@
   ========================================================== */
 
   console.log(
-    '================================='
+    '❤️ Anniversary website ready'
   );
 
   console.log(
-    '❤️ WEBSITE DE ANIVERSARIO CARGADO'
-  );
-
-  console.log(
-    '================================='
-  );
-
-  console.log(
-    'Corazón:',
-    heartSvg
-      ? '✅'
-      : '❌'
-  );
-
-  console.log(
-    'Pantalla intro:',
-    introScreen
-      ? '✅'
-      : '❌'
-  );
-
-  console.log(
-    'Contenido:',
-    mainContent
-      ? '✅'
-      : '❌'
-  );
-
-  console.log(
-    'Música:',
-    music
-      ? '✅ ' + music.src
-      : '❌'
-  );
-
-  console.log(
-    'Fotos:',
+    '📸 Fotos:',
     document.querySelectorAll(
       '#polaroid-field img'
     ).length
+  );
+
+  console.log(
+    '🎵 Música:',
+    music
+      ? music.src
+      : 'NO ENCONTRADA'
   );
 
 })();
