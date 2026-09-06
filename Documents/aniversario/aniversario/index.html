@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Feliz primer año, mi amor ♡</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<canvas id="fog-canvas"></canvas>
+
+<!-- ============ PANTALLA 1: EL CORAZÓN ============ -->
+<section id="intro-screen">
+  <div class="ember-field" id="ember-field"></div>
+
+  <div id="heart-wrap">
+    <div class="hunter-marks" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+
+    <svg id="heart-svg" viewBox="0 0 200 180" width="220" height="200">
+      <defs>
+        <radialGradient id="heartGlass" cx="35%" cy="30%" r="80%">
+          <stop offset="0%" stop-color="#ff8b9a"/>
+          <stop offset="35%" stop-color="#ff1f3d"/>
+          <stop offset="75%" stop-color="#9c0f22"/>
+          <stop offset="100%" stop-color="#4a0611"/>
+        </radialGradient>
+        <filter id="heartGlow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <path id="heart-path" filter="url(#heartGlow)"
+        d="M100,175 C20,120 0,75 0,45 C0,15 25,-2 52,4 C72,8 90,25 100,45
+           C110,25 128,8 148,4 C175,-2 200,15 200,45 C200,75 180,120 100,175 Z"
+        fill="url(#heartGlass)" stroke="#ffd1d8" stroke-width="1.5" stroke-opacity="0.6"/>
+      <g id="crack-lines" stroke="#2b0308" stroke-width="1.4" fill="none" opacity="0.85" stroke-linecap="round">
+        <path d="M100,50 L92,80 L104,95 L88,120 L100,140"/>
+        <path d="M92,80 L65,95"/>
+        <path d="M104,95 L132,88"/>
+        <path d="M88,120 L60,132"/>
+      </g>
+    </svg>
+
+    <div id="heart-shards"></div>
+
+    <h1 id="touch-me">Tócame <span class="heart-mark">♡</span></h1>
+    <p id="touch-sub">Tengo algo que mostrarte...</p>
+  </div>
+</section>
+
+<!-- ============ CONTENIDO PRINCIPAL (oculto al inicio) ============ -->
+<main id="main-content" hidden>
+
+  <!-- Revelación / título -->
+  <section id="reveal">
+    <div class="mist"></div>
+    <h2 class="title-serif">Feliz primer año,<br>mi amor <span class="heart-mark">♡</span></h2>
+    <p class="date-mark">06 • 09 • 2026</p>
+    <p class="body-text">
+      Un año de recuerdos,<br>
+      risas, juegos y momentos<br>
+      que quiero seguir viviendo contigo.
+    </p>
+    <p class="body-text soft">
+      Gracias por ser mi compañero<br>
+      en todas las partidas de la vida <span class="heart-mark">♡</span>
+    </p>
+    <div class="scroll-cue" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- Collage de fotos -->
+  <section id="collage">
+    <p class="eyebrow-note">nuestros recuerdos</p>
+    <div class="polaroid-field" id="polaroid-field">
+      <!-- Cada polaroid: reemplaza el src del <img> por tu foto real en /images -->
+      <figure class="polaroid p1"><img src="images/graduacion.jpg" alt="Graduación juntos" loading="lazy"><figcaption>graduación</figcaption></figure>
+      <figure class="polaroid p2"><img src="images/restaurante.jpg" alt="Cena Cyberpunkt (odie!)" loading="lazy"><figcaption>Cena Cyberpunkt (odie!)</figcaption></figure>
+      <figure class="polaroid p3"><img src="images/mascaras.jpg" alt="Con máscaras" loading="lazy"><figcaption>CArritos chummmm!</figcaption></figure>
+      <figure class="polaroid p4"><img src="images/selfie-espejo.jpg" alt="Selfie frente al espejo" loading="lazy"><figcaption>el espejo .-.</figcaption></figure>
+      <figure class="polaroid p5"><img src="images/parque.jpg" alt="En el parque de atracciones" loading="lazy"><figcaption>el parque epiccc</figcaption></figure>
+      <figure class="polaroid p6"><img src="images/zapatos.jpg" alt="Nuestros zapatos juntos" loading="lazy"><figcaption>juntos, siempre mailov</figcaption></figure>
+      <figure class="polaroid p7"><img src="images/videojuegos.jpg" alt="Jugando videojuegos" loading="lazy"><figcaption>game night dbd soi la mejol</figcaption></figure>
+      <figure class="polaroid p8"><img src="images/carpa.jpg" alt="Dentro de la carpa" loading="lazy"><figcaption>camping!!! nada se mojo</figcaption></figure>
+      <figure class="polaroid p9"><img src="images/auto.jpg" alt="En el auto juntos" loading="lazy"><figcaption>manejeishon</figcaption></figure>
+      <figure class="polaroid p10"><img src="images/extra1.jpg" alt="Un recuerdo más" loading="lazy"><figcaption>ese día esa cita que nerviosa estava</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- Nuestra historia -->
+  <section id="historia">
+    <p class="eyebrow-note">nuestra historia</p>
+    <ol class="timeline">
+      <li>
+        <span class="tl-mark">♡</span>
+        <h3>Primera partida</h3>
+        <p>El comienzo de nosotros.</p>
+      </li>
+      <li>
+        <span class="tl-mark">♡</span>
+        <h3>Primeros recuerdos</h3>
+        <p>Todos esos pequeños momentos que terminaron significando tanto.</p>
+      </li>
+      <li>
+        <span class="tl-mark">♡</span>
+        <h3>Juntos</h3>
+        <p>Restaurantes, juegos, paseos, aventuras y días normales que se volvieron especiales.</p>
+      </li>
+      <li>
+        <span class="tl-mark">♡</span>
+        <h3>Level 1 completed</h3>
+        <p class="date-mark small">06 • 09 • 2026</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- Cierre -->
+  <section id="finale">
+    <h2 class="title-serif small">¿Jugamos otra partida?</h2>
+    <button id="always-btn" type="button">Siempre tú <span class="heart-mark">♡</span></button>
+    <div id="finale-particles" aria-hidden="true"></div>
+  </section>
+
+</main>
+
+<!-- Botón de música -->
+<button id="music-toggle" type="button" aria-label="Reproducir música" aria-pressed="false">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+    <path d="M9 18V5l12-2v13" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </svg>
+</button>
+<!-- Coloca tu canción en /music/cancion.mp3 -->
+<audio id="bg-music" src="music.mp3" loop preload="none"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
